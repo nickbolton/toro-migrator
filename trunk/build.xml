@@ -1,0 +1,19 @@
+<project name="scratch" default="compile">
+
+    <target name="compile">
+        <mkdir dir="target/classes"/>
+        <javac srcdir="src/main/java"
+          destdir="target/classes"
+           source="1.5"
+           target="1.5"
+            debug="true"
+      deprecation="false"
+         optimize="true">
+      <classpath>
+          <fileset dir="src/main/resources">
+              <include name="**/*.jar"/>
+          </fileset>
+      </classpath> 
+    </javac>
+    </target>
+</project>
