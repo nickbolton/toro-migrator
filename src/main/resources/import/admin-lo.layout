@@ -1,0 +1,31 @@
+
+<layout script="classpath://import/import-layout_v2-6.crn" username="admin-lo">
+  <root name="Root folder" hidden="N" immutable="N" unremovable="Y">
+    <header name="Header folder" hidden="N" immutable="Y" unremovable="Y">
+      <channel fname="header"/>
+      <channel fname="portal/login/general"/>
+      <channel fname="session-locales-selector"/>
+    </header>
+    <footer name="Footer folder" hidden="N" immutable="N" unremovable="N">
+      <channel fname="footer"/>
+    </footer>
+    <tab name="Manage Portal" hidden="N" immutable="N" unremovable="N">
+      <column name="Column" hidden="N" immutable="N" unremovable="N">
+        <structure-attribute type="folder">
+          <name>width</name>
+          <value>50%</value>
+        </structure-attribute>
+        <channel fname="groupsmanager"/>
+        <channel fname="User Admin"/>
+      </column>
+      <column name="Column" hidden="N" immutable="N" unremovable="N">
+        <structure-attribute type="folder">
+          <name>width</name>
+          <value>50%</value>
+        </structure-attribute>
+        <channel fname="PermissionsPortlet"/>
+        <channel fname="Permissions Manager"/>
+      </column>
+    </tab>
+  </root>
+</layout>
