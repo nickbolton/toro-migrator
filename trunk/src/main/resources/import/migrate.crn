@@ -1,0 +1,90 @@
+<properties location="../ant.install.properties">
+    <sql-connection driver="${req(jdbc.driver)}" url="${req(jdbc.url)}" username="${req(jdbc.user)}" password="${req(jdbc.password)}">
+           <echo-ln>uPortal db migrations Import Directory=${req($1)}</echo-ln>
+
+           <sql-transaction>
+               <sql-statement sql="update UP_SS_THEME set SS_NAME='DLM XHTML', SS_URI='/org/jasig/portal/layout/tab-column/xhtml-theme/xhtml-theme.xsl', SS_DESCRIPTION_URI='/org/jasig/portal/layout/tab-column/xhtml-theme/xhtml-theme.sdf', SS_DESCRIPTION_TEXT='Renders DLM tabs and columns as xhtml', STRUCT_SS_ID=4, SAMPLE_ICON_URI='media/org/jasig/portal/layout/tab-column/xhtml-theme/sample_icon.gif', SAMPLE_URI='media/org/jasig/portal/layout/tab-column/xhtml-theme/sample_full.gif', MIME_TYPE='text/html', DEVICE_TYPE='workstation', SERIALIZER_NAME='XHTML', UP_MODULE_CLASS='org.jasig.portal.channels.DLMUserPreferences.TabColumnPrefsState' where SS_ID=4"/>
+               <sql-statement sql="update up_user_profile set structure_ss_id=4, theme_ss_id=4 where structure_ss_id=2001"/>
+               <sql-statement sql="update UP_SS_THEME_PARM set PARAM_DEFAULT_VAL='spring' where SS_ID=4 and PARAM_NAME='skin'"/>
+               <sql-statement sql="update up_channel set chan_class = 'org.jasig.portal.channels.CLogin' where chan_class = 'net.unicon.portal.channels.login.CLogin'"/>
+
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.CSyndFeed', TYPE_NAME='RSS', TYPE_DESCR='Renders content provided in the popular RSS (Rich Site Summary) format', TYPE_DEF_URI='/org/jasig/portal/channels/CSyndFeed/CSyndFeed.cpd' WHERE TYPE_ID=0</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.CSyndFeed', 'RSS', 'Renders content provided in the popular RSS (Rich Site Summary) format', '/org/jasig/portal/channels/CSyndFeed/CSyndFeed.cpd', 0)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.CGenericXSLT', TYPE_NAME='XML SSL', TYPE_DESCR='Transforms an XML document into a fragment of markup language given a set of XSLT stylesheets specified in a uPortal stylesheet list (SSL) file.', TYPE_DEF_URI='/org/jasig/portal/channels/CGenericXSLT/CGenericXSLT.cpd' WHERE TYPE_ID=1</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.CGenericXSLT', 'XML SSL', 'Transforms an XML document into a fragment of markup language given a set of XSLT stylesheets specified in a uPortal stylesheet list (SSL) file.', '/org/jasig/portal/channels/CGenericXSLT/CGenericXSLT.cpd', 1)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.CInlineFrame', TYPE_NAME='Inline Frame', TYPE_DESCR='Renders an HTML page within a frame. Not supported in browsers older than Internet Explorer 5 and Netscape 6.', TYPE_DEF_URI='/org/jasig/portal/channels/CInlineFrame/CInlineFrame.cpd' WHERE TYPE_ID=2</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.CInlineFrame', 'Inline Frame', 'Renders an HTML page within a frame. Not supported in browsers older than Internet Explorer 5 and Netscape 6.', '/org/jasig/portal/channels/CInlineFrame/CInlineFrame.cpd', 2)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.CImage', TYPE_NAME='Image', TYPE_DESCR='Displays an image with optional caption and subcaption', TYPE_DEF_URI='/org/jasig/portal/channels/CImage/CImage.cpd' WHERE TYPE_ID=3</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.CImage', 'Image', 'Displays an image with optional caption and subcaption', '/org/jasig/portal/channels/CImage/CImage.cpd', 3)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.webproxy.CWebProxy', TYPE_NAME='Web Proxy', TYPE_DESCR='Incorporates a dynamic HTML or XML application', TYPE_DEF_URI='/org/jasig/portal/channels/webproxy/CWebProxy.cpd' WHERE TYPE_ID=4</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.webproxy.CWebProxy', 'Web Proxy', 'Incorporates a dynamic HTML or XML application', '/org/jasig/portal/channels/webproxy/CWebProxy.cpd', 4)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.portlet.CPortletAdapter', TYPE_NAME='WSRP Consumer', TYPE_DESCR='WSRP consumer implementation', TYPE_DEF_URI='/org/jasig/portal/channels/portlet/wsrp-consumer.cpd' WHERE TYPE_ID=5</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.portlet.CPortletAdapter', 'WSRP Consumer', 'WSRP consumer implementation', '/org/jasig/portal/channels/portlet/wsrp-consumer.cpd', 5)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.CApplet', TYPE_NAME='Applet', TYPE_DESCR='Displays a java applet', TYPE_DEF_URI='/org/jasig/portal/channels/CApplet/CApplet.cpd' WHERE TYPE_ID=6</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.CApplet', 'Applet', 'Displays a java applet', '/org/jasig/portal/channels/CApplet/CApplet.cpd', 6)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.CGenericXSLT', TYPE_NAME='XML XSLT', TYPE_DESCR='Transforms an XML document into a fragment of markup language using a single XSLT.', TYPE_DEF_URI='/org/jasig/portal/channels/CGenericXSLT/CGenericJustXSLT.cpd' WHERE TYPE_ID=8</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.CGenericXSLT', 'XML XSLT', 'Transforms an XML document into a fragment of markup language using a single XSLT.', '/org/jasig/portal/channels/CGenericXSLT/CGenericJustXSLT.cpd', 8)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.sqlquery.CSqlQuery', TYPE_NAME='SQL', TYPE_DESCR='Executes a SQL query against a selected DataSource.', TYPE_DEF_URI='/org/jasig/portal/channels/sqlquery/CSqlQuery/CSqlQuery.cpd' WHERE TYPE_ID=9</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.sqlquery.CSqlQuery', 'SQL', 'Executes a SQL query against a selected DataSource.', '/org/jasig/portal/channels/sqlquery/CSqlQuery/CSqlQuery.cpd', 9)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.version.CVersion', TYPE_NAME='Version', TYPE_DESCR='Displays the version number of a specified portal component.', TYPE_DEF_URI='/org/jasig/portal/channels/version/CVersion.cpd' WHERE TYPE_ID=10</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.version.CVersion', 'Version', 'Displays the version number of a specified portal component.', '/org/jasig/portal/channels/version/CVersion.cpd', 10)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.portlet.CPortletAdapter', TYPE_NAME='Portlet', TYPE_DESCR='Adapter for JSR-168 Portlets', TYPE_DEF_URI='/org/jasig/portal/channels/portlet/CPortletAdapter.cpd' WHERE TYPE_ID=101</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.portlet.CPortletAdapter', 'Portlet', 'Adapter for JSR-168 Portlets', '/org/jasig/portal/channels/portlet/CPortletAdapter.cpd', 101)</insert-statement>
+               </sql-upsert>
+               <sql-upsert>
+                   <update-statement>UPDATE UP_CHAN_TYPE set TYPE='org.jasig.portal.channels.portlet.CPortletAdapter', TYPE_NAME='Bookmarks Portlet', TYPE_DESCR='UWisc Bookmarks Portlet', TYPE_DEF_URI='/edu/wisc/my/portlets/bookmarks/BookmarksPortlet.cpd' WHERE TYPE_ID=102</update-statement>
+                   <insert-statement>INSERT INTO UP_CHAN_TYPE (TYPE, TYPE_NAME, TYPE_DESCR, TYPE_DEF_URI, TYPE_ID) VALUES ('org.jasig.portal.channels.portlet.CPortletAdapter', 'Bookmarks Portlet', 'UWisc Bookmarks Portlet', '/edu/wisc/my/portlets/bookmarks/BookmarksPortlet.cpd', 102)</insert-statement>
+               </sql-upsert>
+
+               <for-each items="${groovy([
+                   'net.unicon.portal.channels.forums.CForums',
+                   'net.unicon.portal.channels.forums.CForumsSetup',
+                   'net.unicon.portal.channels.groupchat.IRCGroupChannel',
+                   'net.unicon.portal.channels.groupchat.ChatAdminChannel'])}">
+                   <sql-query>
+                       <sql>SELECT CHAN_ID FROM UP_CHANNEL WHERE CHAN_CLASS = '${Attributes.OBJECT}'</sql>
+                       <subtasks>
+                           <sql-statement sql="DELETE FROM UP_GROUP_MEMBERSHIP WHERE MEMBER_IS_GROUP = 'f' AND MEMBER_KEY='${CHAN_ID}'"/>
+                           <sql-statement sql="DELETE FROM UP_CHANNEL_MDATA WHERE CHAN_ID=${CHAN_ID}"/>
+                           <sql-statement sql="DELETE FROM UP_CHANNEL_PARAM WHERE CHAN_ID=${CHAN_ID}"/>
+                           <sql-statement sql="DELETE FROM UP_CHANNEL WHERE CHAN_ID=${CHAN_ID}"/>
+                       </subtasks>
+                   </sql-query>
+               </for-each>
+
+               <sql-statement sql="UPDATE UP_CHANNEL_PARAM SET CHAN_PARM_VAL = 'toro-briefcase-portlet.BriefcasePortlet' where CHAN_PARM_NM = 'portletDefinitionId' and CHAN_PARM_VAL = 'AcademusApps.BriefcasePortlet'"/>
+               <sql-statement sql="UPDATE UP_CHANNEL_PARAM SET CHAN_PARM_VAL = 'toro-messaging-portlet.MessagingPortlet' where CHAN_PARM_NM = 'portletDefinitionId' and CHAN_PARM_VAL = 'AcademusApps.MessagingPortlet'"/>
+               <sql-statement sql="UPDATE UP_CHANNEL_PARAM SET CHAN_PARM_VAL = 'toro-permissions-portlet.PermissionsPortlet' where CHAN_PARM_NM = 'portletDefinitionId' and CHAN_PARM_VAL = 'AcademusApps.PermissionsPortlet'"/>
+
+               <sql-query>
+                   <sql>SELECT DISTINCT(CHAN_CLASS) FROM UP_CHANNEL ORDER BY CHAN_CLASS</sql>
+                   <subtasks>
+                       <sql-query>
+                           <sql>SELECT COUNT(CHAN_ID) FROM UP_CHANNEL WHERE CHAN_CLASS = '${CHAN_CLASS}'</sql>
+                       </sql-query>
+                   </subtasks>
+               </sql-query>
+           </sql-transaction>
+    </sql-connection>
+</properties>

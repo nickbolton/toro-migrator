@@ -1,0 +1,6 @@
+<membership script="classpath://import/import-membership_v2-6.crn">
+  <parent>Portal Administrators</parent>
+  <child>
+    <literal>admin-lo</literal>
+  </child>
+</membership>
