@@ -1,7 +1,0 @@
-
-<membership script="classpath://import/import-membership_v2-6.crn">
-  <parent>Development</parent>
-  <child> 
-    <channel>thrower</channel> 
-  </child>
-</membership>
