@@ -1,0 +1,7 @@
+
+<membership script="classpath://import/import-membership_v2-6.crn">
+  <parent>uPortal</parent>
+  <child> 
+    <channel>uportal-home-page</channel> 
+  </child>
+</membership>
