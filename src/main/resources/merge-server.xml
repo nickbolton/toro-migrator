@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<changes>
+  <file path="server.xml">
+    <remove type="node">
+        <xpath>/Server/GlobalNamingResources/Resource[@name='jdbc/PortalDb']</xpath>
+    </remove>
+    <remove type="node">
+        <xpath>/Server/GlobalNamingResources/ResourceParams[@name='jdbc/PortalDb']</xpath>
+    </remove>
+    <remove type="node">
+        <xpath>/Server/Service/Engine/Host/Context[@path='/portal']</xpath>
+    </remove>
+    <remove type="node">
+        <xpath>/Server/Service/Engine/Host/Context[@path='/AcademusApps']</xpath>
+    </remove>
+    <remove type="node">
+        <xpath>/Server/Service/Engine/Host/Context[@path='/blojsom']</xpath>
+    </remove>
+  </file>
+</changes>
+
